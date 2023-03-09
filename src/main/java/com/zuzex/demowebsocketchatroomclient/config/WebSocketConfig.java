@@ -5,6 +5,9 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.converter.*;
+import org.springframework.messaging.simp.stomp.DefaultStompSession;
+import org.springframework.messaging.simp.stomp.StompHeaders;
+import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandler;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.socket.client.WebSocketClient;
@@ -39,6 +42,11 @@ public class WebSocketConfig {
     @Bean
     public StompSessionHandler sessionHandler() {
         return new MyStompSessionHandler();
+    }
+
+    @Bean
+    public StompSession session() {
+        return new DefaultStompSession(sessionHandler(), new StompHeaders());
     }
 
     @Bean
